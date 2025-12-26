@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -51,12 +51,9 @@ interface Scheme {
 }
 
 const GovernmentSchemes = () => {
-  const [schemes, setSchemes] = useState<Scheme[]>([]);
-  const [filteredSchemes, setFilteredSchemes] = useState<Scheme[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [stateFilter, setStateFilter] = useState<string>('');
   const [categoryFilter, setCategoryFilter] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(true);
   const { t } = useLanguage();
   const { user } = useAuth();
 
@@ -70,16 +67,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_pmksy',
       state: 'Central',
       category: 'infrastructure',
-      amount: 'Subsidy up to 75%',
-      eligibility: ['All farmers', 'Land ownership proof'],
-      documents: ['Land Records', 'Bank Account', 'Aadhaar Card'],
-      applicationProcess: 'Apply through local agriculture office',
-      deadline: 'Ongoing',
+      amount: t('subsidyUpTo75'),
+      eligibility: [t('allFarmers'), t('landOwnershipProof')],
+      documents: [t('landRecords'), t('bankAccount'), t('aadhaarCard')],
+      applicationProcess: t('applyLocalAgriOffice'),
+      deadline: t('ongoing'),
       description: 'Promotes efficient irrigation and water conservation for farmers',
       descriptionKey: 'scheme_pmksy_desc',
-      benefits: ['Irrigation infrastructure', 'Water use efficiency'],
+      benefits: [t('irrigationInfrastructure'), t('waterUseEfficiency')],
       contactInfo: {
-        department: 'Ministry of Jal Shakti',
+        department: t('ministryJalShakti'),
         phone: '1800111555',
         email: 'info@jalshakti.gov.in',
         website: 'https://pmksy.gov.in'
@@ -92,16 +89,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_nfsm',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Varies by crop',
-      eligibility: ['All farmers', 'Participating in targeted crops'],
-      documents: ['Land Records', 'Bank Account'],
-      applicationProcess: 'Apply through state agriculture department',
-      deadline: 'Ongoing',
+      amount: t('variesByCrop'),
+      eligibility: [t('allFarmers'), t('targetedCropsParticipation')],
+      documents: [t('landRecords'), t('bankAccount')],
+      applicationProcess: t('applyStateAgriDept'),
+      deadline: t('ongoing'),
       description: 'Incentives for increasing production of rice, wheat, pulses, and coarse cereals',
       descriptionKey: 'scheme_nfsm_desc',
-      benefits: ['Seed subsidy', 'Demonstration support'],
+      benefits: [t('seedSubsidy'), t('demonstrationSupport')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'nfsm@gov.in',
         website: 'https://nfsm.gov.in'
@@ -114,16 +111,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_rkvy',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Project-based',
-      eligibility: ['State governments', 'Farmer groups'],
-      documents: ['Project Proposal', 'Land Records'],
-      applicationProcess: 'Submit proposal to state agriculture department',
-      deadline: 'Ongoing',
-      description: 'Funding for state-level agricultural development projects',
+      amount: t('projectBased'),
+      eligibility: [t('stateGovernments'), t('farmerGroups')],
+      documents: [t('projectProposal'), t('landRecords')],
+      applicationProcess: t('submitProposalStateAgriDept'),
+      deadline: t('ongoing'),
+      description: 'State-level agricultural development projects',
       descriptionKey: 'scheme_rkvy_desc',
-      benefits: ['Infrastructure', 'Training', 'Technology adoption'],
+      benefits: [t('projectBased'), t('technologyAdoption')],
       contactInfo: {
-        department: 'Ministry of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'rkvy@gov.in',
         website: 'https://rkvy.nic.in'
@@ -136,16 +133,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_nhm',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Varies by activity',
-      eligibility: ['Horticulture farmers', 'SHGs', 'FPOs'],
-      documents: ['Land Records', 'Bank Account'],
-      applicationProcess: 'Apply through state horticulture department',
-      deadline: 'Ongoing',
+      amount: t('variesByActivity'),
+      eligibility: [t('horticultureFarmers'), t('shgs'), t('fpos')],
+      documents: [t('landRecords'), t('bankAccount')],
+      applicationProcess: t('applyStateHorticultureDept'),
+      deadline: t('ongoing'),
       description: 'Support for horticulture crops, nurseries, and post-harvest management',
       descriptionKey: 'scheme_nhm_desc',
-      benefits: ['Planting material', 'Irrigation', 'Cold storage'],
+      benefits: [t('plantingMaterial'), t('irrigation'), t('coldStorage')],
       contactInfo: {
-        department: 'National Horticulture Board',
+        department: t('nationalHorticultureBoard'),
         phone: '0124-2342992',
         email: 'nhb@nic.in',
         website: 'https://nhb.gov.in'
@@ -158,16 +155,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_pmfme',
       state: 'Central',
       category: 'subsidy',
-      amount: '35% subsidy (max ₹10 lakh)',
-      eligibility: ['Micro food processing units', 'SHGs', 'Cooperatives'],
-      documents: ['Business Registration', 'Bank Account'],
-      applicationProcess: 'Apply through state nodal agencies',
-      deadline: 'Ongoing',
+      amount: t('subsidy35Max10Lakh'),
+      eligibility: [t('microFoodUnits'), t('shgs'), t('cooperatives')],
+      documents: [t('businessRegistration'), t('bankAccount')],
+      applicationProcess: t('applyStateNodalAgencies'),
+      deadline: t('ongoing'),
       description: 'Support for micro food processing units for upgradation and formalization',
       descriptionKey: 'scheme_pmfme_desc',
-      benefits: ['Capital subsidy', 'Training', 'Branding support'],
+      benefits: [t('capitalSubsidy'), t('training'), t('brandingSupport')],
       contactInfo: {
-        department: 'Ministry of Food Processing',
+        department: t('ministryFoodProcessing'),
         phone: '011-26406516',
         email: 'pmfme@nic.in',
         website: 'https://mofpi.nic.in/pmfme/'
@@ -180,16 +177,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_agri_mech_tn',
       state: 'TN',
       category: 'equipment',
-      amount: 'Up to 50% subsidy',
-      eligibility: ['Farmers in Tamil Nadu'],
-      documents: ['Land Records', 'Bank Account'],
-      applicationProcess: 'Apply through district agriculture office',
-      deadline: 'Ongoing',
+      amount: t('upTo50Subsidy'),
+      eligibility: [t('farmersTN')],
+      documents: [t('landRecords'), t('bankAccount')],
+      applicationProcess: t('applyDistrictAgriOffice'),
+      deadline: t('ongoing'),
       description: 'Subsidy for purchase of tractors, power tillers, and farm machinery',
       descriptionKey: 'scheme_agri_mech_tn_desc',
-      benefits: ['Machinery subsidy', 'Training'],
+      benefits: [t('machinerySubsidy'), t('training')],
       contactInfo: {
-        department: 'Department of Agriculture, TN',
+        department: t('deptAgricultureTN'),
         phone: '044-28512345',
         email: 'agri.tn@tn.gov.in',
         website: 'https://www.tn.gov.in/agriculture/'
@@ -202,16 +199,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_organic_kl',
       state: 'KL',
       category: 'training',
-      amount: 'Training & input subsidy',
-      eligibility: ['Farmers in Kerala', 'Organic farming practitioners'],
-      documents: ['Farmer ID', 'Bank Account'],
-      applicationProcess: 'Apply through Kerala State Horticulture Mission',
-      deadline: 'Ongoing',
+      amount: t('trainingInputSubsidy'),
+      eligibility: [t('farmersKL'), t('organicPractitioners')],
+      documents: [t('farmerId'), t('bankAccount')],
+      applicationProcess: t('applyKLHorticultureMission'),
+      deadline: t('ongoing'),
       description: 'Training and input support for organic farming in Kerala',
       descriptionKey: 'scheme_organic_kl_desc',
-      benefits: ['Training', 'Input subsidy', 'Certification support'],
+      benefits: [t('training'), t('subsidy'), t('certificationSupport')],
       contactInfo: {
-        department: 'Kerala State Horticulture Mission',
+        department: t('keralaStateHorticultureMission'),
         phone: '0471-2318922',
         email: 'info@keralaagriculture.gov.in',
         website: 'https://keralaagriculture.gov.in/'
@@ -224,16 +221,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_pmkmdy',
       state: 'Central',
       category: 'pension',
-      amount: '₹3,000/month after 60 years',
-      eligibility: ['Small and marginal farmers', 'Age 18-40 years'],
-      documents: ['Aadhaar Card', 'Bank Account'],
-      applicationProcess: 'Apply online or at CSC',
-      deadline: 'Ongoing',
+      amount: t('pension3000Month'),
+      eligibility: [t('smallMarginalFarmers'), t('age18to40')],
+      documents: [t('aadhaarCard'), t('bankAccount')],
+      applicationProcess: t('applyOnlineCSC'),
+      deadline: t('ongoing'),
       description: 'Pension scheme for small and marginal farmers after 60 years of age',
       descriptionKey: 'scheme_pmkmdy_desc',
-      benefits: ['Monthly pension', 'Family pension'],
+      benefits: [t('monthlyPension'), t('familyPension')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '1800-180-1551',
         email: 'support@maandhan.in',
         website: 'https://maandhan.in/'
@@ -246,16 +243,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_pmay',
       state: 'Central',
       category: 'infrastructure',
-      amount: 'Up to ₹1.2 lakh',
-      eligibility: ['Rural families', 'No pucca house'],
-      documents: ['Aadhaar Card', 'Bank Account'],
-      applicationProcess: 'Apply through Gram Panchayat',
-      deadline: 'Ongoing',
+      amount: t('upTo1_2Lakh'),
+      eligibility: [t('ruralFamilies'), t('noPuccaHouse')],
+      documents: [t('aadhaarCard'), t('bankAccount')],
+      applicationProcess: t('applyGramPanchayat'),
+      deadline: t('ongoing'),
       description: 'Financial assistance for construction of houses in rural areas',
       descriptionKey: 'scheme_pmay_desc',
-      benefits: ['Housing subsidy', 'Sanitation support'],
+      benefits: [t('housingSubsidy'), t('sanitationSupport')],
       contactInfo: {
-        department: 'Ministry of Rural Development',
+        department: t('ministryRuralDevelopment'),
         phone: '1800-11-6446',
         email: 'pmayg@gov.in',
         website: 'https://pmayg.nic.in/'
@@ -268,16 +265,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_nlm',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Varies by activity',
-      eligibility: ['Livestock farmers', 'SHGs', 'FPOs'],
-      documents: ['Livestock ownership proof', 'Bank Account'],
-      applicationProcess: 'Apply through state animal husbandry department',
-      deadline: 'Ongoing',
+      amount: t('variesByActivity'),
+      eligibility: [t('livestockFarmers'), t('shgs'), t('fpos')],
+      documents: [t('livestockProof'), t('bankAccount')],
+      applicationProcess: t('applyStateAnimalHusbandry'),
+      deadline: t('ongoing'),
       description: 'Support for livestock development, feed, and fodder',
       descriptionKey: 'scheme_nlm_desc',
-      benefits: ['Subsidy', 'Training', 'Infrastructure'],
+      benefits: [t('subsidy'), t('training'), t('infrastructure')],
       contactInfo: {
-        department: 'Department of Animal Husbandry',
+        department: t('deptAnimalHusbandry'),
         phone: '011-23382651',
         email: 'nlm@nic.in',
         website: 'https://nlm.gov.in/'
@@ -290,16 +287,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_pmmsy',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Varies by project',
-      eligibility: ['Fish farmers', 'Fisheries cooperatives'],
-      documents: ['Fisheries ID', 'Bank Account'],
-      applicationProcess: 'Apply through fisheries department',
-      deadline: 'Ongoing',
+      amount: t('variesByProject'),
+      eligibility: [t('fishFarmers'), t('fisheriesCooperatives')],
+      documents: [t('fisheriesId'), t('bankAccount')],
+      applicationProcess: t('applyFisheriesDept'),
+      deadline: t('ongoing'),
       description: 'Support for fisheries and aquaculture development',
       descriptionKey: 'scheme_pmmsy_desc',
-      benefits: ['Subsidy', 'Infrastructure', 'Training'],
+      benefits: [t('subsidy'), t('infrastructure'), t('training')],
       contactInfo: {
-        department: 'Department of Fisheries',
+        department: t('deptFisheries'),
         phone: '011-23382651',
         email: 'pmmsy@nic.in',
         website: 'https://pmmsy.dof.gov.in/'
@@ -312,16 +309,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_ami_tn',
       state: 'TN',
       category: 'infrastructure',
-      amount: 'Up to 33% subsidy',
-      eligibility: ['Farmers', 'FPOs', 'Cooperatives'],
-      documents: ['Project Proposal', 'Land Records'],
-      applicationProcess: 'Apply through TN Agricultural Marketing Board',
-      deadline: 'Ongoing',
+      amount: t('upTo33Subsidy'),
+      eligibility: [t('allFarmers'), t('fpos'), t('cooperatives')],
+      documents: [t('projectProposal'), t('landRecords')],
+      applicationProcess: t('applyTNAgriMarketingBoard'),
+      deadline: t('ongoing'),
       description: 'Support for creation of market yards, cold storage, and processing units',
       descriptionKey: 'scheme_ami_tn_desc',
-      benefits: ['Infrastructure subsidy', 'Market linkage'],
+      benefits: [t('infrastructure'), t('marketLinkage')],
       contactInfo: {
-        department: 'TN Agricultural Marketing Board',
+        department: t('tnAgriMarketingBoard'),
         phone: '044-28511234',
         email: 'marketing@tn.gov.in',
         website: 'https://www.tn.gov.in/marketing/'
@@ -334,16 +331,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_shc',
       state: 'Central',
       category: 'training',
-      amount: 'Free soil testing',
-      eligibility: ['All farmers'],
-      documents: ['Land Records'],
-      applicationProcess: 'Apply through local agriculture office',
-      deadline: 'Ongoing',
+      amount: t('freeSoilTesting'),
+      eligibility: [t('allFarmers')],
+      documents: [t('landRecords')],
+      applicationProcess: t('applyLocalAgriOffice'),
+      deadline: t('ongoing'),
       description: 'Soil testing and health card distribution for better crop management',
       descriptionKey: 'scheme_shc_desc',
-      benefits: ['Soil health card', 'Fertilizer recommendation'],
+      benefits: [t('soilHealthCard'), t('fertilizerRecommendation')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'shc@gov.in',
         website: 'https://soilhealth.dac.gov.in/'
@@ -356,16 +353,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_wbci',
       state: 'Central',
       category: 'insurance',
-      amount: 'Premium: 1.5% to 2%',
-      eligibility: ['All farmers', 'Notified crops'],
-      documents: ['Aadhaar Card', 'Bank Account'],
-      applicationProcess: 'Apply through insurance companies or banks',
-      deadline: 'Varies by season',
+      amount: t('premium1_5To2'),
+      eligibility: [t('allFarmers'), t('notifiedCrops')],
+      documents: [t('aadhaarCard'), t('bankAccount')],
+      applicationProcess: t('applyInsuranceBanks'),
+      deadline: t('variesBySeason'),
       description: 'Insurance coverage for crop loss due to adverse weather',
       descriptionKey: 'scheme_wbci_desc',
-      benefits: ['Weather risk coverage', 'Quick claim settlement'],
+      benefits: [t('weatherRiskCoverage'), t('quickClaimSettlement')],
       contactInfo: {
-        department: 'Ministry of Agriculture',
+        department: t('ministryAgriculture'),
         phone: '011-23382651',
         email: 'wbci@gov.in',
         website: 'https://pmfby.gov.in/'
@@ -378,16 +375,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_mif_tn',
       state: 'TN',
       category: 'infrastructure',
-      amount: 'Loan at concessional rate',
-      eligibility: ['Farmers in Tamil Nadu'],
-      documents: ['Land Records', 'Bank Account'],
-      applicationProcess: 'Apply through NABARD or state agriculture department',
-      deadline: 'Ongoing',
+      amount: t('loanConcessionalRate'),
+      eligibility: [t('farmersTN')],
+      documents: [t('landRecords'), t('bankAccount')],
+      applicationProcess: t('applyNABARDorStateAgriDept'),
+      deadline: t('ongoing'),
       description: 'Loan and support for micro irrigation projects',
       descriptionKey: 'scheme_mif_tn_desc',
-      benefits: ['Concessional loan', 'Technical support'],
+      benefits: [t('concessionalLoan'), t('technicalSupport')],
       contactInfo: {
-        department: 'NABARD',
+        department: t('nabard'),
         phone: '044-28522811',
         email: 'tn@nabard.org',
         website: 'https://www.nabard.org/'
@@ -396,20 +393,20 @@ const GovernmentSchemes = () => {
     },
     {
       id: '22',
-      title: 'Farmers Welfare Fund Board (KL)',
+      title: 'Farmers Welfare Fund (KL)',
       titleKey: 'scheme_fwf_kl',
       state: 'KL',
       category: 'pension',
-      amount: 'Pension & welfare benefits',
-      eligibility: ['Registered farmers in Kerala'],
-      documents: ['Farmer ID', 'Bank Account'],
-      applicationProcess: 'Apply through Kerala Farmers Welfare Board',
-      deadline: 'Ongoing',
+      amount: t('pensionWelfareBenefits'),
+      eligibility: [t('registeredFarmersKL')],
+      documents: [t('farmerId'), t('bankAccount')],
+      applicationProcess: t('applyKLFarmersWelfareBoard'),
+      deadline: t('ongoing'),
       description: 'Pension and welfare support for farmers in Kerala',
       descriptionKey: 'scheme_fwf_kl_desc',
-      benefits: ['Monthly pension', 'Medical aid'],
+      benefits: [t('monthlyPension'), t('medicalAid')],
       contactInfo: {
-        department: 'Kerala Farmers Welfare Board',
+        department: t('keralaFarmersWelfareBoard'),
         phone: '0471-2321234',
         email: 'kfwboard@kerala.gov.in',
         website: 'https://kfwboard.kerala.gov.in/'
@@ -418,20 +415,20 @@ const GovernmentSchemes = () => {
     },
     {
       id: '23',
-      title: 'Agricultural Technology Management Agency',
+      title: 'Agricultural Technology Management Agency (ATMA)',
       titleKey: 'scheme_atma',
       state: 'Central',
       category: 'training',
-      amount: 'Training & demonstration',
-      eligibility: ['All farmers'],
-      documents: ['Farmer ID'],
-      applicationProcess: 'Apply through district ATMA office',
-      deadline: 'Ongoing',
+      amount: t('trainingDemonstration'),
+      eligibility: [t('allFarmers')],
+      documents: [t('farmerId')],
+      applicationProcess: t('applyDistrictATMAOffice'),
+      deadline: t('ongoing'),
       description: 'Training and demonstration of new agricultural technologies',
       descriptionKey: 'scheme_atma_desc',
-      benefits: ['Training', 'Exposure visits'],
+      benefits: [t('training'), t('exposureVisits')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'atma@gov.in',
         website: 'https://atma.gov.in/'
@@ -444,16 +441,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_nmoop',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Varies by activity',
-      eligibility: ['Oilseed and oil palm farmers'],
-      documents: ['Land Records', 'Bank Account'],
-      applicationProcess: 'Apply through state agriculture department',
-      deadline: 'Ongoing',
+      amount: t('variesByActivity'),
+      eligibility: [t('oilseedOilPalmFarmers')],
+      documents: [t('landRecords'), t('bankAccount')],
+      applicationProcess: t('applyStateAgriDept'),
+      deadline: t('ongoing'),
       description: 'Support for oilseed and oil palm cultivation',
       descriptionKey: 'scheme_nmoop_desc',
-      benefits: ['Seed subsidy', 'Technical support'],
+      benefits: [t('seedSubsidy'), t('technicalSupport')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'nmoop@gov.in',
         website: 'https://nmoop.gov.in/'
@@ -466,16 +463,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_pmgkra',
       state: 'Central',
       category: 'employment',
-      amount: 'Wage employment',
-      eligibility: ['Rural workers', 'Returned migrants'],
-      documents: ['Aadhaar Card'],
-      applicationProcess: 'Apply through Gram Panchayat',
-      deadline: 'Ongoing',
+      amount: t('wageEmployment'),
+      eligibility: [t('ruralWorkers'), t('returnedMigrants')],
+      documents: [t('aadhaarCard')],
+      applicationProcess: t('applyGramPanchayat'),
+      deadline: t('ongoing'),
       description: 'Wage employment and rural infrastructure for migrant workers',
       descriptionKey: 'scheme_pmgkra_desc',
-      benefits: ['Wage employment', 'Skill training'],
+      benefits: [t('wageEmployment'), t('skillTraining')],
       contactInfo: {
-        department: 'Ministry of Rural Development',
+        department: t('ministryRuralDevelopment'),
         phone: '1800-11-6446',
         email: 'gkra@gov.in',
         website: 'https://rural.nic.in/'
@@ -488,16 +485,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_isam',
       state: 'Central',
       category: 'infrastructure',
-      amount: 'Up to 33% subsidy',
-      eligibility: ['Farmers', 'FPOs', 'Cooperatives'],
-      documents: ['Project Proposal', 'Land Records'],
-      applicationProcess: 'Apply through state marketing board',
-      deadline: 'Ongoing',
+      amount: t('upTo33Subsidy'),
+      eligibility: [t('allFarmers'), t('fpos'), t('cooperatives')],
+      documents: [t('projectProposal'), t('landRecords')],
+      applicationProcess: t('applyStateMarketingBoard'),
+      deadline: t('ongoing'),
       description: 'Support for marketing infrastructure and e-NAM integration',
       descriptionKey: 'scheme_isam_desc',
-      benefits: ['Infrastructure', 'Market linkage'],
+      benefits: [t('infrastructure'), t('marketLinkage')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'isam@gov.in',
         website: 'https://enam.gov.in/'
@@ -506,20 +503,20 @@ const GovernmentSchemes = () => {
     },
     {
       id: '27',
-      title: 'PM Kisan Sampada Yojana',
+      title: 'PM Sampada Yojana',
       titleKey: 'scheme_pmsampada',
       state: 'Central',
       category: 'subsidy',
-      amount: 'Varies by project',
-      eligibility: ['Food processing units', 'FPOs', 'SHGs'],
-      documents: ['Business Registration', 'Bank Account'],
-      applicationProcess: 'Apply through Ministry of Food Processing',
-      deadline: 'Ongoing',
+      amount: t('variesByProject'),
+      eligibility: [t('foodProcessingUnits'), t('fpos'), t('shgs')],
+      documents: [t('businessRegistration'), t('bankAccount')],
+      applicationProcess: t('applyMinistryFoodProcessing'),
+      deadline: t('ongoing'),
       description: 'Support for food processing and value addition',
       descriptionKey: 'scheme_pmsampada_desc',
-      benefits: ['Capital subsidy', 'Infrastructure'],
+      benefits: [t('capitalSubsidy'), t('infrastructure')],
       contactInfo: {
-        department: 'Ministry of Food Processing',
+        department: t('ministryFoodProcessing'),
         phone: '011-26406516',
         email: 'sampada@nic.in',
         website: 'https://mofpi.nic.in/'
@@ -532,16 +529,16 @@ const GovernmentSchemes = () => {
       titleKey: 'scheme_nmsa',
       state: 'Central',
       category: 'training',
-      amount: 'Training & demonstration',
-      eligibility: ['All farmers'],
-      documents: ['Farmer ID'],
-      applicationProcess: 'Apply through state agriculture department',
-      deadline: 'Ongoing',
+      amount: t('trainingDemonstration'),
+      eligibility: [t('allFarmers')],
+      documents: [t('farmerId')],
+      applicationProcess: t('applyStateAgriDept'),
+      deadline: t('ongoing'),
       description: 'Training and support for climate-resilient agriculture',
       descriptionKey: 'scheme_nmsa_desc',
-      benefits: ['Training', 'Demonstration', 'Technical support'],
+      benefits: [t('training'), t('demonstration'), t('technicalSupport')],
       contactInfo: {
-        department: 'Department of Agriculture',
+        department: t('deptAgriculture'),
         phone: '011-23382651',
         email: 'nmsa@gov.in',
         website: 'https://nmsa.dac.gov.in/'
@@ -550,20 +547,20 @@ const GovernmentSchemes = () => {
     },
     {
       id: '29',
-      title: 'Pradhan Mantri Kisan Urja Suraksha Yojana',
+      title: 'PM-KUSUM (Solar Pump Scheme)',
       titleKey: 'scheme_pmkusum',
       state: 'Central',
       category: 'infrastructure',
-      amount: 'Subsidy up to 60%',
-      eligibility: ['All farmers', 'Land ownership proof'],
-      documents: ['Land Records', 'Bank Account'],
-      applicationProcess: 'Apply through state nodal agency',
-      deadline: 'Ongoing',
+      amount: t('subsidyUpTo60'),
+      eligibility: [t('allFarmers'), t('landOwnershipProof')],
+      documents: [t('landRecords'), t('bankAccount')],
+      applicationProcess: t('applyStateNodalAgency'),
+      deadline: t('ongoing'),
       description: 'Support for installation of solar pumps and grid-connected solar power plants',
       descriptionKey: 'scheme_pmkusum_desc',
-      benefits: ['Solar pump subsidy', 'Income from surplus power'],
+      benefits: [t('solarPumpSubsidy'), t('incomeSurplusPower')],
       contactInfo: {
-        department: 'Ministry of New and Renewable Energy',
+        department: t('minNewRenewableEnergy'),
         phone: '1800-180-3333',
         email: 'kusum@nic.in',
         website: 'https://mnre.gov.in/'
@@ -572,20 +569,20 @@ const GovernmentSchemes = () => {
     },
     {
       id: '30',
-      title: 'PM Atmanirbhar Swasth Bharat Yojana',
+      title: 'PM Ayushman Bharat Health Yojana',
       titleKey: 'scheme_pmabhy',
       state: 'Central',
       category: 'health',
-      amount: 'Health infrastructure support',
-      eligibility: ['Rural population', 'Farmers'],
-      documents: ['Aadhaar Card'],
-      applicationProcess: 'Apply through local health center',
-      deadline: 'Ongoing',
+      amount: t('healthInfraSupport'),
+      eligibility: [t('ruralPopulation'), t('allFarmers')],
+      documents: [t('aadhaarCard')],
+      applicationProcess: t('applyLocalHealthCenter'),
+      deadline: t('ongoing'),
       description: 'Support for health and wellness centers in rural areas',
       descriptionKey: 'scheme_pmabhy_desc',
-      benefits: ['Health checkups', 'Medical aid'],
+      benefits: [t('healthCheckups'), t('medicalAid')],
       contactInfo: {
-        department: 'Ministry of Health',
+        department: t('ministryHealth'),
         phone: '1800-180-1104',
         email: 'pmabhy@gov.in',
         website: 'https://pmabhy.gov.in/'
@@ -594,38 +591,16 @@ const GovernmentSchemes = () => {
     }
   ];
 
-  useEffect(() => {
-    // Simulate data loading
-    setTimeout(() => {
-      setSchemes(schemesData);
-      setFilteredSchemes(schemesData);
-      setIsLoading(false);
-    }, 1000);
-  }, []);
+  const filteredSchemes = schemesData.filter(scheme => {
+    const matchesSearch = !searchTerm ||
+      scheme.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      scheme.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-  useEffect(() => {
-    let filtered = schemes;
+    const matchesState = !stateFilter || stateFilter === 'ALL' || scheme.state === stateFilter;
+    const matchesCategory = !categoryFilter || categoryFilter === 'ALL' || scheme.category === categoryFilter;
 
-    // Apply search filter
-    if (searchTerm) {
-      filtered = filtered.filter(scheme =>
-        scheme.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        scheme.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-
-    // Apply state filter
-    if (stateFilter) {
-      filtered = filtered.filter(scheme => scheme.state === stateFilter);
-    }
-
-    // Apply category filter
-    if (categoryFilter) {
-      filtered = filtered.filter(scheme => scheme.category === categoryFilter);
-    }
-
-    setFilteredSchemes(filtered);
-  }, [searchTerm, stateFilter, categoryFilter, schemes]);
+    return matchesSearch && matchesState && matchesCategory;
+  });
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -670,7 +645,7 @@ const GovernmentSchemes = () => {
               {t('governmentSchemes')}
             </h1>
             <p className="text-white mt-2">
-              Explore government subsidies, loans, and support schemes for farmers in Tamil Nadu and Kerala
+              {t('governmentSchemesForFarmers')}
             </p>
           </div>
 
@@ -681,7 +656,7 @@ const GovernmentSchemes = () => {
                 <div className="relative">
                   <Search className="absolute left-3 top-3 h-4 w-4 text-emerald-400" />
                   <Input
-                    placeholder="Search schemes..."
+                    placeholder={t('searchSchemesPlaceholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10 h-10 bg-black/20 border-white/10 text-white placeholder:text-white/50 focus:bg-black/40 focus:border-emerald-400/50"
@@ -690,28 +665,28 @@ const GovernmentSchemes = () => {
 
                 <Select value={stateFilter} onValueChange={setStateFilter}>
                   <SelectTrigger className="bg-black/20 border-white/10 text-white focus:ring-emerald-400/50">
-                    <SelectValue placeholder="All States" />
+                    <SelectValue placeholder={t('allStates')} />
                   </SelectTrigger>
                   <SelectContent className="bg-emerald-950 border-emerald-800 text-white">
-                    <SelectItem value="ALL" className="focus:bg-emerald-800 focus:text-white">All States</SelectItem>
-                    <SelectItem value="TN" className="focus:bg-emerald-800 focus:text-white">Tamil Nadu</SelectItem>
-                    <SelectItem value="KL" className="focus:bg-emerald-800 focus:text-white">Kerala</SelectItem>
-                    <SelectItem value="Central" className="focus:bg-emerald-800 focus:text-white">Central Government</SelectItem>
+                    <SelectItem value="ALL" className="focus:bg-emerald-800 focus:text-white">{t('allStates')}</SelectItem>
+                    <SelectItem value="TN" className="focus:bg-emerald-800 focus:text-white">{t('tamilNadu')}</SelectItem>
+                    <SelectItem value="KL" className="focus:bg-emerald-800 focus:text-white">{t('kerala')}</SelectItem>
+                    <SelectItem value="Central" className="focus:bg-emerald-800 focus:text-white">{t('centralGovernment')}</SelectItem>
                   </SelectContent>
                 </Select>
 
                 <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                   <SelectTrigger className="bg-black/20 border-white/10 text-white focus:ring-emerald-400/50">
-                    <SelectValue placeholder="All Categories" />
+                    <SelectValue placeholder={t('allCategories')} />
                   </SelectTrigger>
                   <SelectContent className="bg-emerald-950 border-emerald-800 text-white">
-                    <SelectItem value="ALL" className="focus:bg-emerald-800 focus:text-white">All Categories</SelectItem>
-                    <SelectItem value="subsidy" className="focus:bg-emerald-800 focus:text-white">Subsidies</SelectItem>
-                    <SelectItem value="loan" className="focus:bg-emerald-800 focus:text-white">Loans</SelectItem>
-                    <SelectItem value="insurance" className="focus:bg-emerald-800 focus:text-white">Insurance</SelectItem>
-                    <SelectItem value="training" className="focus:bg-emerald-800 focus:text-white">Training</SelectItem>
-                    <SelectItem value="equipment" className="focus:bg-emerald-800 focus:text-white">Equipment</SelectItem>
-                    <SelectItem value="infrastructure" className="focus:bg-emerald-800 focus:text-white">Infrastructure</SelectItem>
+                    <SelectItem value="ALL" className="focus:bg-emerald-800 focus:text-white">{t('allCategories')}</SelectItem>
+                    <SelectItem value="subsidy" className="focus:bg-emerald-800 focus:text-white">{t('subsidies')}</SelectItem>
+                    <SelectItem value="loan" className="focus:bg-emerald-800 focus:text-white">{t('loan')}</SelectItem>
+                    <SelectItem value="insurance" className="focus:bg-emerald-800 focus:text-white">{t('insurance')}</SelectItem>
+                    <SelectItem value="training" className="focus:bg-emerald-800 focus:text-white">{t('training')}</SelectItem>
+                    <SelectItem value="equipment" className="focus:bg-emerald-800 focus:text-white">{t('equipment')}</SelectItem>
+                    <SelectItem value="infrastructure" className="focus:bg-emerald-800 focus:text-white">{t('infrastructure')}</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -725,7 +700,7 @@ const GovernmentSchemes = () => {
                   className="bg-black/20 border-emerald-500/30 text-emerald-100 hover:bg-emerald-500/20 hover:text-white hover:border-emerald-500/50"
                 >
                   <Filter className="mr-2 h-4 w-4" />
-                  Clear Filters
+                  {t('clearFilters')}
                 </Button>
               </div>
             </CardContent>
@@ -735,194 +710,177 @@ const GovernmentSchemes = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <Card className="glass-card-content border-emerald-500/20">
               <CardContent className="p-4 text-center">
-                <div className="text-2xl font-bold text-white mb-1">{schemes.length}</div>
-                <p className="text-sm text-emerald-200/70">Total Schemes</p>
+                <div className="text-2xl font-bold text-white mb-1">{schemesData.length}</div>
+                <p className="text-sm text-emerald-200/70">{t('totalSchemes')}</p>
               </CardContent>
             </Card>
             <Card className="glass-card-content border-green-500/20">
               <CardContent className="p-4 text-center">
                 <div className="text-2xl font-bold text-green-400 mb-1">
-                  {schemes.filter(s => s.status === 'active').length}
+                  {schemesData.filter(s => s.status === 'active').length}
                 </div>
-                <p className="text-sm text-green-200/70">Active Schemes</p>
+                <p className="text-sm text-green-200/70">{t('activeSchemes')}</p>
               </CardContent>
             </Card>
             <Card className="glass-card-content border-blue-500/20">
               <CardContent className="p-4 text-center">
                 <div className="text-2xl font-bold text-blue-400 mb-1">
-                  {schemes.filter(s => s.state === user?.state).length}
+                  {schemesData.filter(s => s.state === user?.state).length}
                 </div>
-                <p className="text-sm text-blue-200/70">For Your State</p>
+                <p className="text-sm text-blue-200/70">{t('forYourState')}</p>
               </CardContent>
             </Card>
             <Card className="glass-card-content border-orange-500/20">
               <CardContent className="p-4 text-center">
                 <div className="text-2xl font-bold text-orange-400 mb-1">
-                  {schemes.filter(s => s.category === 'subsidy').length}
+                  {schemesData.filter(s => s.category === 'subsidy').length}
                 </div>
-                <p className="text-sm text-orange-200/70">Subsidies</p>
+                <p className="text-sm text-orange-200/70">{t('subsidies')}</p>
               </CardContent>
             </Card>
           </div>
 
           {/* Schemes List */}
-          {isLoading ? (
-            <div className="text-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400 mx-auto mb-4"></div>
-              <p className="text-gray-300">Loading schemes...</p>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-semibold text-white">{t('availableSchemes')}</h2>
+              <Badge variant="outline" className="border-emerald-500/30 text-emerald-200">{filteredSchemes.length} {t('schemesFound')}</Badge>
             </div>
-          ) : (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-semibold text-white">Available Schemes</h2>
-                <Badge variant="outline" className="border-emerald-500/30 text-emerald-200">{filteredSchemes.length} schemes found</Badge>
-              </div>
 
-              <div className="grid grid-cols-1 gap-6">
-                {filteredSchemes.map((scheme) => (
-                  <Card key={scheme.id} className="glass-card-content hover:border-emerald-400/50 transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            {getCategoryIcon(scheme.category)}
-                            <CardTitle className="text-xl text-white">
-                              {scheme.titleKey ? t(scheme.titleKey) : scheme.title}
-                            </CardTitle>
-                          </div>
-                          <div className="flex flex-wrap gap-2 mb-3">
-                            <Badge className={getStateColor(scheme.state)}>
-                              {scheme.state === 'Central' ? 'Central Govt' :
-                                scheme.state === 'TN' ? 'Tamil Nadu' : 'Kerala'}
-                            </Badge>
-                            <Badge className={getStatusColor(scheme.status)}>
-                              {scheme.status.toUpperCase()}
-                            </Badge>
-                            <Badge variant="outline" className="capitalize text-gray-300 border-gray-500/30">
-                              {scheme.category}
-                            </Badge>
-                          </div>
+            <div className="grid grid-cols-1 gap-6">
+              {filteredSchemes.map((scheme) => (
+                <Card key={scheme.id} className="glass-card-content hover:border-emerald-400/50 transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          {getCategoryIcon(scheme.category)}
+                          <CardTitle className="text-xl text-white">
+                            {scheme.titleKey ? t(scheme.titleKey) : scheme.title}
+                          </CardTitle>
                         </div>
-                        <div className="text-right">
-                          <div className="text-lg font-bold text-emerald-400 mb-1">
-                            {scheme.amount}
-                          </div>
-                          <div className="flex items-center text-sm text-gray-400 justify-end">
-                            <Calendar className="h-3 w-3 mr-1" />
-                            {scheme.deadline}
-                          </div>
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          <Badge variant="outline" className="border-blue-500/30 text-blue-200">
+                            {scheme.state === 'Central' ? t('centralGovt') : scheme.state === 'TN' ? t('tamilNadu') : t('kerala')}
+                          </Badge>
+                          <Badge variant="outline" className={scheme.status === 'active' ? "border-green-500/30 text-green-200" : "border-yellow-500/30 text-yellow-200"}>
+                            {t(scheme.status).toUpperCase()}
+                          </Badge>
+                          <Badge variant="outline" className="capitalize text-gray-300 border-gray-500/30">
+                            {t(scheme.category)}
+                          </Badge>
                         </div>
                       </div>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <p className="text-gray-300">
-                        {scheme.descriptionKey ? t(scheme.descriptionKey) : scheme.description}
-                      </p>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Eligibility */}
-                        <div>
-                          <h4 className="font-semibold mb-2 flex items-center gap-2 text-white">
-                            <CheckCircle className="h-4 w-4 text-emerald-400" />
-                            Eligibility Criteria
-                          </h4>
-                          <ul className="space-y-1 text-sm text-gray-300">
-                            {scheme.eligibility.map((criteria, index) => (
-                              <li key={index} className="flex items-start gap-2">
-                                <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-1.5"></div>
-                                {criteria}
-                              </li>
-                            ))}
-                          </ul>
+                      <div className="text-right">
+                        <div className="text-lg font-bold text-emerald-400 mb-1">
+                          {scheme.amount}
                         </div>
-
-                        {/* Required Documents */}
-                        <div>
-                          <h4 className="font-semibold mb-2 flex items-center gap-2 text-white">
-                            <FileText className="h-4 w-4 text-blue-400" />
-                            Required Documents
-                          </h4>
-                          <ul className="space-y-1 text-sm text-gray-300">
-                            {scheme.documents.map((doc, index) => (
-                              <li key={index} className="flex items-start gap-2">
-                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5"></div>
-                                {doc}
-                              </li>
-                            ))}
-                          </ul>
+                        <div className="text-xs text-gray-400">
+                          <Clock className="inline h-3 w-3 mr-1" />
+                          {scheme.deadline}
                         </div>
                       </div>
-
-                      {/* Benefits */}
-                      <div>
-                        <h4 className="font-semibold mb-2 flex items-center gap-2 text-white">
-                          <Zap className="h-4 w-4 text-amber-400" />
-                          Key Benefits
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          {scheme.benefits.map((benefit, index) => (
-                            <div key={index} className="flex items-center gap-2 text-sm text-gray-300">
-                              <CheckCircle className="h-3 w-3 text-emerald-500" />
-                              {benefit}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Application Process */}
-                      <div className="bg-emerald-900/30 border border-emerald-500/20 p-6 rounded-lg">
-                        <h4 className="font-semibold mb-2 flex items-center gap-2 text-white">
-                          <Clock className="h-4 w-4 text-purple-400" />
-                          How to Apply
-                        </h4>
-                        <p className="text-sm mb-4 text-gray-300">{scheme.applicationProcess}</p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                          <div className="text-gray-300">
-                            <p className="font-medium mb-1 text-white">Contact Information:</p>
-                            <p>{scheme.contactInfo.department}</p>
-                            <p>Phone: {scheme.contactInfo.phone}</p>
-                            <p>Email: {scheme.contactInfo.email}</p>
-                          </div>
-                          <div className="flex flex-col gap-2">
-                            <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 shadow-lg">
-                              <a href={scheme.contactInfo.website} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="mr-2 h-4 w-4" />
-                                Visit Official Website
-                              </a>
-                            </Button>
-                            <Button variant="outline" className="border-emerald-500/30 text-emerald-100 hover:bg-emerald-500/20 hover:text-white bg-transparent">
-                              <FileText className="mr-2 h-4 w-4" />
-                              Download Application Form
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {filteredSchemes.length === 0 && (
-                <Card className="glass-card-content">
-                  <CardContent className="p-12 text-center">
-                    <Building className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">No Schemes Found</h3>
-                    <p className="text-muted-foreground mb-6">
-                      No schemes match your current filters. Try adjusting your search criteria.
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-300 mb-4">
+                      {scheme.descriptionKey ? t(scheme.descriptionKey) : scheme.description}
                     </p>
-                    <Button onClick={() => {
-                      setSearchTerm('');
-                      setStateFilter('');
-                      setCategoryFilter('');
-                    }}>
-                      Clear All Filters
-                    </Button>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <h4 className="text-sm font-semibold text-emerald-400 mb-2 flex items-center gap-2">
+                          <CheckCircle className="h-4 w-4" />
+                          {t('eligibilityCriteria')}
+                        </h4>
+                        <ul className="text-sm text-gray-300 space-y-1">
+                          {scheme.eligibility.map((item, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <span className="text-emerald-400 mt-1">•</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="text-sm font-semibold text-emerald-400 mb-2 flex items-center gap-2">
+                          <FileText className="h-4 w-4" />
+                          {t('requiredDocuments')}
+                        </h4>
+                        <ul className="text-sm text-gray-300 space-y-1">
+                          {scheme.documents.map((doc, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <span className="text-emerald-400 mt-1">•</span>
+                              <span>{doc}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <h4 className="text-sm font-semibold text-emerald-400 mb-2 flex items-center gap-2">
+                        <Zap className="h-4 w-4" />
+                        {t('keyBenefits')}
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {scheme.benefits.map((benefit, index) => (
+                          <Badge key={index} variant="outline" className="bg-emerald-900/30 border-emerald-500/30 text-emerald-200">
+                            {benefit}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="border-t border-white/10 pt-4">
+                      <h4 className="text-sm font-semibold text-emerald-400 mb-3">{t('contactInformation')}</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div className="text-gray-300">
+                          <strong className="text-white">{scheme.contactInfo.department}</strong>
+                          <div className="mt-1">
+                            <span className="text-gray-400">{t('phoneNumber')}:</span> {scheme.contactInfo.phone}
+                          </div>
+                          <div>
+                            <span className="text-gray-400">{t('emailAddress')}:</span> {scheme.contactInfo.email}
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            variant="outline"
+                            className="w-full bg-emerald-500/10 border-emerald-500/30 text-emerald-200 hover:bg-emerald-500/20"
+                            onClick={() => window.open(scheme.contactInfo.website, '_blank')}
+                          >
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            {t('visitOfficialWebsite')}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
-              )}
+              ))}
             </div>
-          )}
+
+            {filteredSchemes.length === 0 && (
+              <Card className="glass-card-content">
+                <CardContent className="p-12 text-center">
+                  <Building className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold mb-2">{t('noSchemesFound')}</h3>
+                  <p className="text-muted-foreground mb-6">
+                    {t('noSchemesFoundDesc')}
+                  </p>
+                  <Button onClick={() => {
+                    setSearchTerm('');
+                    setStateFilter('');
+                    setCategoryFilter('');
+                  }}>
+                    {t('clearAllFilters')}
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </PageBackground>
